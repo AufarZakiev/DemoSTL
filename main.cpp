@@ -14,7 +14,7 @@ std::vector<Point> extract(const std::vector<Point>& points)
 {
   std::vector<Point> result;
 
-  if (points.size() == 0)
+  if (points.empty())
     return result;
 
   int p = 0;
