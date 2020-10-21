@@ -37,7 +37,7 @@ std::vector<Point> extract(const std::vector<Point>& points)
 
   if (p == q)
   {
-    if ((*points.begin()).x >= 0)
+    if (isRight(points[0]))
       return points;
     else
       return result;
