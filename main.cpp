@@ -29,13 +29,11 @@ std::vector<Point> extract(const std::vector<Point>& points)
   }
 
   int q = 0;
-  bool found2 = false;
-  for (int i = 1; i < points.size() && ~found2; ++i)
+  for (int i = 1; i < points.size(); ++i)
   {
     if (points[i - 1].x >= 0 && points[i].x < 0)
     {
       q = i;
-      found2 = true;
     }
   }
 
