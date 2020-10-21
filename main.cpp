@@ -17,27 +17,23 @@ std::vector<Point> extract(const std::vector<Point>& points)
   if (points.empty())
     return result;
 
-  auto isRight = [](const Point& pt) { return pt.x >= 0; }
+  auto isRight = [](const Point& pt) { return pt.x >= 0; };
 
-  int p = 0;
-  for (int i = 1; i < points.size(); ++i)
-  {
-    if (!isRight(points[i - 1]) && isRight(points[i]))
+  auto find = [&](bool flag) {
+    int p = 0;
+    for (int i = 1; i < points.size(); ++i)
     {
-      p = i;
-      break;
+      if (isRight(points[i - 1]) == flag && isRight(points[i]) != flag)
+      {
+        p = i;
+        return i;
+      }
     }
-  }
+    return 0;
+  };
 
-  int q = 0;
-  for (int i = 1; i < points.size(); ++i)
-  {
-    if (isRight(points[i - 1]) && !isRight(points[i]))
-    {
-      q = i;
-      break;
-    }
-  }
+  int p = find(false);
+  int q = find(true);
 
   if (p == q)
   {
