@@ -29,6 +29,11 @@ std::vector<Point> extract(const std::vector<Point>& points)
     std::rotate(points.begin(), points.end(), std::next(middle));
   }
 
+  if (!std::is_partitioned(points.begin(), points.end(), isRight))
+  {
+    throw std::runtime_error("Unexpected order");
+  }
+
   auto appendResult = [&](int from, int to, bool shouldBeRight) {
     int i = from;
     while (i != to)
