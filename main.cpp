@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <algorithm>
 
 using namespace std;
 
@@ -20,25 +21,12 @@ std::vector<Point> extract(const std::vector<Point>& points)
 
   auto isRight = [](const Point& pt) { return pt.x >= 0; };
 
-  auto findBoundary = [&](bool flag) {
-    int p = 0;
-    for (int i = 1; i < points.size(); ++i)
-    {
-      if (isRight(points[i - 1]) == flag && isRight(points[i]) != flag)
-      {
-        p = i;
-        return i;
-      }
-    }
-    return 0;
-  };
+  auto middle = std::adjacent_find(points.begin(), points.end(),
+                                   [&](auto& pt1, auto& pt2) { return !isRight(pt1) && isRight(pt2); });
 
-  int p = findBoundary(false);
-  int q = findBoundary(true);
-
-  if (p == q)
+  if (middle != points.end())
   {
-    return (isRight(points[0])) ? points : result;
+    std::rotate(points.begin(), points.end(), std::next(middle));
   }
 
   auto appendResult = [&](int from, int to, bool shouldBeRight) {
