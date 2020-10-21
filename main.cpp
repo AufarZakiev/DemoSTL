@@ -41,28 +41,26 @@ std::vector<Point> extract(const std::vector<Point>& points)
     return (isRight(points[0])) ? points : result;
   }
 
-  int i = p;
-  while (i != q)
-  {
-    if (points[i].x >= 0)
+  auto appendResult = [&](int from, int to, bool shouldBeRight) {
+    int i = from;
+    while (i != to)
     {
-      return { Point{ std::numeric_limits<int>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN() } };
+      if (isRight(points[i]) != shouldBeRight)
+      {
+        result = { Point{ std::numeric_limits<int>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN() } };
+        return false;
+      }
+      if (shouldBeRight)
+      {
+        result.push_back(points[i]);
+      }
+      if (++i >= points.size())
+        i = 0;
     }
-    result.push_back(points[i]);
-    if (++i >= points.size())
-      i = 0;
-  }
+    return true;
+  };
 
-  i = q;
-  while (i != p)
-  {
-    if (points[i].x >= 0)
-    {
-      return { Point{ std::numeric_limits<int>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN() } };
-    }
-    if (++i >= points.size())
-      i = 0;
-  }
+  bool success = appendResult(p, q, true) && appendResult(q, p, true);
 }
 
 int main()
