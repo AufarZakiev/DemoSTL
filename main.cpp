@@ -47,8 +47,7 @@ std::vector<Point> extract(const std::vector<Point>& points)
     {
       if (isRight(points[i]) != shouldBeRight)
       {
-        result = { Point{ std::numeric_limits<int>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN() } };
-        return false;
+        throw std::runtime_error("Unexpected order");
       }
       if (shouldBeRight)
       {
