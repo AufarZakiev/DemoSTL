@@ -19,7 +19,7 @@ std::vector<Point> extract(const std::vector<Point>& points)
 
   auto isRight = [](const Point& pt) { return pt.x >= 0; };
 
-  auto find = [&](bool flag) {
+  auto findBoundary = [&](bool flag) {
     int p = 0;
     for (int i = 1; i < points.size(); ++i)
     {
@@ -32,8 +32,8 @@ std::vector<Point> extract(const std::vector<Point>& points)
     return 0;
   };
 
-  int p = find(false);
-  int q = find(true);
+  int p = findBoundary(false);
+  int q = findBoundary(true);
 
   if (p == q)
   {
