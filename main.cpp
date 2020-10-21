@@ -12,7 +12,7 @@ public:
   int x, y;
 };
 
-std::vector<Point> extract(const std::vector<Point>& points)
+std::vector<Point> extract(std::vector<Point>& points)
 {
   std::vector<Point> result;
 
@@ -34,25 +34,7 @@ std::vector<Point> extract(const std::vector<Point>& points)
     throw std::runtime_error("Unexpected order");
   }
 
-  auto appendResult = [&](int from, int to, bool shouldBeRight) {
-    int i = from;
-    while (i != to)
-    {
-      if (isRight(points[i]) != shouldBeRight)
-      {
-        throw std::runtime_error("Unexpected order");
-      }
-      if (shouldBeRight)
-      {
-        result.push_back(points[i]);
-      }
-      if (++i >= points.size())
-        i = 0;
-    }
-    return true;
-  };
-
-  bool success = appendResult(p, q, true) && appendResult(q, p, true);
+  points.erase(std::partition_point(points.begin(), points.end(), isRight), points.end());
 }
 
 int main()
