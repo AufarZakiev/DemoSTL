@@ -58,12 +58,7 @@ std::vector<Point> extract(const std::vector<Point>& points)
   {
     if (points[i].x >= 0)
     {
-      result.clear();
-      Point nan;
-      nan.x = std::sqrt(-1);
-      nan.x = std::sqrt(-1);
-      result.push_back(nan);
-      return result;
+      return { Point{ std::numeric_limits<int>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN() } };
     }
     if (++i >= points.size())
       i = 0;
