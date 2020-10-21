@@ -14,11 +14,6 @@ public:
 
 std::vector<Point> extract(std::vector<Point>& points)
 {
-  std::vector<Point> result;
-
-  if (points.empty())
-    return result;
-
   auto isRight = [](const Point& pt) { return pt.x >= 0; };
 
   auto middle = std::adjacent_find(points.begin(), points.end(),
@@ -35,6 +30,8 @@ std::vector<Point> extract(std::vector<Point>& points)
   }
 
   points.erase(std::partition_point(points.begin(), points.end(), isRight), points.end());
+
+  return points;
 }
 
 int main()
