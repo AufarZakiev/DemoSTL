@@ -18,19 +18,19 @@ std::vector<Point> extract(const std::vector<Point>& points)
     return result;
 
   int p = 0;
-  bool found = false;
-  for (int i = 1; i < points.size() && ~found; ++i)
+
+  for (int i = 1; i < points.size(); ++i)
   {
     if (points[i - 1].x < 0 && points[i].x >= 0)
     {
       p = i;
-      found = true;
+      break;
     }
   }
 
   int q = 0;
   bool found2 = false;
-  for (int i = 1; i < points.size() && ~found; ++i)
+  for (int i = 1; i < points.size() && ~found2; ++i)
   {
     if (points[i - 1].x >= 0 && points[i].x < 0)
     {
