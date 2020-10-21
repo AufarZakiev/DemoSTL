@@ -13,7 +13,6 @@ public:
 std::vector<Point> extract(const std::vector<Point>& points)
 {
   std::vector<Point> result;
-  result.clear();
 
   if (points.size() == 0)
     return result;
