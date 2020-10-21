@@ -17,11 +17,12 @@ std::vector<Point> extract(const std::vector<Point>& points)
   if (points.empty())
     return result;
 
-  int p = 0;
+  auto isRight = [](const Point& pt) { return pt.x >= 0; }
 
+  int p = 0;
   for (int i = 1; i < points.size(); ++i)
   {
-    if (points[i - 1].x < 0 && points[i].x >= 0)
+    if (!isRight(points[i - 1]) && isRight(points[i]))
     {
       p = i;
       break;
@@ -31,9 +32,10 @@ std::vector<Point> extract(const std::vector<Point>& points)
   int q = 0;
   for (int i = 1; i < points.size(); ++i)
   {
-    if (points[i - 1].x >= 0 && points[i].x < 0)
+    if (isRight(points[i - 1]) && !isRight(points[i]))
     {
       q = i;
+      break;
     }
   }
 
